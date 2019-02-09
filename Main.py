@@ -60,13 +60,9 @@ class Game:
         self.display_width = 600
         self.display_height = 480
         self.game_display = pygame.display.set_mode((self.display_width, self.display_height))
-        pygame.display.set_caption('Gra 1')
+        pygame.display.set_caption('Snake_Game')
         self.clock = pygame.time.Clock()
         self.snake = Snake()
-
-        self.food_size = 10  # food
-        self.food_color = (0, 0, 255)
-        self.food_position =
 
 
     def handle_keyboard_input(self):
@@ -93,7 +89,6 @@ class Game:
             self.clock.tick(self.fps_number)
             pygame.display.update()
             self.game_over()
-            self.print_food()
 
     def game_over(self):
         if self.snake.position.x >= self.display_width\
@@ -104,10 +99,6 @@ class Game:
             print("Game Over!")
         else:
             pass
-
-    def print_food(self):
-        self.food_position = random.randint(self.food_position.x < self.display_width, self.food_position.y < self.display_height)
-        print(self.food_position)
 
 
 Game().play()
