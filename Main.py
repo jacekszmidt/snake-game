@@ -25,7 +25,7 @@ class Snake:
         print(f'current pos {self.position.x}:{self.position.y}')
         pygame.draw.rect(game_display, self.snake_color,
                          (self.position.x, self.position.y,
-                          self.snake_size, self.snake_size))
+                          self.snake_size, self.snake_size,))
 
     def set_next_pos(self):
         if self.next_move == SnakeMove.UP:
@@ -62,7 +62,7 @@ class Game:
         pygame.display.set_caption('Snake_Game')
         self.clock = pygame.time.Clock()
         self.snake = Snake()
-        self.food = Food()
+        self.food = Food(self.snake)
 
     def handle_keyboard_input(self):
         for event in pygame.event.get():
@@ -103,11 +103,11 @@ class Game:
 
 
 class Food:
-    def __init__(self):
+    def __init__(self, snake):
         self.x_food = 10 * (random.randint(0, 600 / 10) - 1)
         self.y_food = 10 * (random.randint(0, 480 / 10) - 1)
-        self.snake = Snake()
         self.eaten_food = False
+        self.snake = snake
 
     def printing_food(self, display):
         pygame.draw.rect(display, (0, 0, 255), (self.x_food, self.y_food, 10, 10), 0)
