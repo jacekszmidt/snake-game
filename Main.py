@@ -104,7 +104,7 @@ class Game:
 
 class Food:
     def __init__(self, snake):
-        self.x_food = 10 * (random.randint(0, 600 / 10) - 1)
+        self.x_food = 10 * (random.randint(0, 600 / 10) - 1)  # food every 10px: 110x120, 130x150
         self.y_food = 10 * (random.randint(0, 480 / 10) - 1)
         self.eaten_food = False
         self.snake = snake
