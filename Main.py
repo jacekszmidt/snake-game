@@ -113,7 +113,7 @@ class Food:
         pygame.draw.rect(display, (0, 0, 255), (self.x_food, self.y_food, 10, 10), 0)
 
     def eating_food(self):
-        if self.x_food == self.snake.position.x and self.y_food == self.snake.position.y:
+        if self.x_food == self.snake.position.x and self.y_food == self.snake.position.y:  # checking position
                 self.eaten_food = True
                 self.x_food = 10 * (random.randint(0, 600 / 10) - 1)
                 self.y_food = 10 * (random.randint(0, 480 / 10) - 1)
