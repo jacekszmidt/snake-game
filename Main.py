@@ -123,7 +123,7 @@ class Food:
     def eating_food(self):
         if self.x_food == self.snake.position.x and self.y_food == self.snake.position.y:  # checking position
                 self.eaten_food = True
-                self.score += 1
+                self.score += 1  # counting points
                 print(self.score)
                 self.x_food = 10 * (random.randint(0, 600 / 10) - 1)
                 self.y_food = 10 * (random.randint(0, 480 / 10) - 1)
