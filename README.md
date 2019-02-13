@@ -1,5 +1,10 @@
 # snake-game
 
+This is a snake game :)
 
-Use arrow keys to move
-Press ESC to quit
+
+<strong>Instructions:</strong><br>
+<ul>
+    <li>Use arrow keys to move</li>
+    <li>Press ESC to quit</li>
+</ul>
