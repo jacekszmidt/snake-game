@@ -58,6 +58,7 @@ class Game:
         self.fps_number = 4
         self.display_width = 600
         self.display_height = 480
+        self.score = 0
         self.game_display = pygame.display.set_mode((self.display_width, self.display_height))
         pygame.display.set_caption('Snake_Game')
         self.clock = pygame.time.Clock()
@@ -88,6 +89,7 @@ class Game:
             self.clock.tick(self.fps_number)
             self.food.eating_food()
             self.food.printing_food(self.game_display)
+            self.display_score(self.game_display)
             pygame.display.update()
             self.game_over()
 
@@ -101,6 +103,11 @@ class Game:
         else:
             pass
 
+    def display_score(self, game_display):
+        font = pygame.font.SysFont("arial", 15)
+        text = font.render(f"Score: {self.food.score}", True, (135, 135, 205))
+        self.game_display.blit(text, (10, 10))
+
 
 class Food:
     def __init__(self, snake):
@@ -108,6 +115,7 @@ class Food:
         self.y_food = 10 * (random.randint(0, 480 / 10) - 1)
         self.eaten_food = False
         self.snake = snake
+        self.score = 0
 
     def printing_food(self, display):
         pygame.draw.rect(display, (0, 0, 255), (self.x_food, self.y_food, 10, 10), 0)
@@ -115,6 +123,8 @@ class Food:
     def eating_food(self):
         if self.x_food == self.snake.position.x and self.y_food == self.snake.position.y:  # checking position
                 self.eaten_food = True
+                self.score += 1
+                print(self.score)
                 self.x_food = 10 * (random.randint(0, 600 / 10) - 1)
                 self.y_food = 10 * (random.randint(0, 480 / 10) - 1)
 
