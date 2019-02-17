@@ -28,7 +28,7 @@ class Snake:
         pygame.draw.rect(game_display, self.snake_color,
                          (self.position_list[0].x, self.position_list[0].y,
                           self.snake_size, self.snake_size,))
-        for snejk in self.position_list:
+        for snejk in self.position_list:  # adding part to snake
             pygame.draw.rect(game_display, self.snake_color,
                              [snejk.x, snejk.y,
                               self.snake_size, self.snake_size])
