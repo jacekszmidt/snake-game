@@ -15,11 +15,12 @@ class SnakeMove(Enum):
 
 class Snake:
     def __init__(self):
-        self.position_list = list()
-        self.position_list.append(Vector2(200, 200))
+        self.position_list = [Vector2(200, 200)]
         self.snake_size = 10
-        self.next_move = SnakeMove.UP
+        self.next_move = SnakeMove.RIGHT
         self.snake_color = (0, 0, 0)
+        self.stop_game = False
+        self.add_snake = False
 
     def move(self, game_display):
         self.set_next_pos()
@@ -27,16 +28,30 @@ class Snake:
         pygame.draw.rect(game_display, self.snake_color,
                          (self.position_list[0].x, self.position_list[0].y,
                           self.snake_size, self.snake_size,))
+        for snejk in self.position_list:
+            pygame.draw.rect(game_display, self.snake_color,
+                             [snejk.x, snejk.y,
+                              self.snake_size, self.snake_size])
 
     def set_next_pos(self):
+        position = Vector2(self.position_list[0].x, self.position_list[0].y)
         if self.next_move == SnakeMove.UP:
-            self.position_list[0] += SnakeMove.UP.value
+            position += SnakeMove.UP.value
         if self.next_move == SnakeMove.DOWN:
-            self.position_list[0] += SnakeMove.DOWN.value
+            position += SnakeMove.DOWN.value
         if self.next_move == SnakeMove.LEFT:
-            self.position_list[0] += SnakeMove.LEFT.value
+            position += SnakeMove.LEFT.value
         if self.next_move == SnakeMove.RIGHT:
-            self.position_list[0] += SnakeMove.RIGHT.value
+            position += SnakeMove.RIGHT.value
+        if position in self.position_list:
+            self.stop_game = True
+            print(f'game over!')
+        if self.add_snake:
+            self.position_list = [position] + [self.position_list[0]] + self.position_list
+            self.add_snake = False
+        else:
+            self.position_list = [position] + self.position_list
+        self.position_list.pop()
 
     def go_up(self):
         self.next_move = SnakeMove.UP
@@ -56,7 +71,7 @@ class Game:
         pygame.init()
         self.stop_game = False
         self.bg_color = [255, 255, 255]
-        self.fps_number = 4
+        self.fps_number = 10
         self.display_width = 600
         self.display_height = 480
         self.score = 0
@@ -126,7 +141,8 @@ class Food:
         if self.x_food == self.snake.position_list[0].x and self.y_food == self.snake.position_list[0].y:  # checking position
                 self.eaten_food = True
                 self.score += 1  # counting points
-                print(self.score)
+                self.snake.add_snake = True
+                print(f'snake eat food at pos: [{self.x_food},{self.y_food}]')
                 self.x_food = 10 * (random.randint(0, 600 / 10) - 1)
                 self.y_food = 10 * (random.randint(0, 480 / 10) - 1)
 
